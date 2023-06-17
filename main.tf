@@ -82,12 +82,6 @@ resource "google_project_iam_member" "developer-cloudsql-instance-role" {
   member  = "serviceAccount:${google_service_account.developer.email}"
 }
 
-resource "google_sql_user" "developer-user" {
-  name     = replace(google_service_account.developer.email, ".gserviceaccount.com", "")
-  instance = google_sql_database_instance.simple-budget-db.name
-  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
-}
-
 resource "google_compute_subnetwork" "database-connector-subnetwork" {
   ip_cidr_range            = "10.11.0.0/28"
   name                     = "${var.base}-database-connector-subnetwork"
